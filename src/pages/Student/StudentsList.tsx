@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material"
+import { Card, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 import { useStudents } from "../../hooks/useStudents"
 import StudentRow from "./StudentRow"
 
@@ -17,12 +17,26 @@ export default function StudentsList() {
                 <Typography variant="h4">
                     Estudantes
                 </Typography>
-                { students.map(student => (
-                    <StudentRow
-                        key={student.id}
-                        student={student}
-                    />
-                ))}
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Nome</TableCell>
+                            <TableCell>Email</TableCell>
+                            <TableCell>CPF</TableCell>
+                            <TableCell>Data de Nascimento</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        { students.map(student => (
+                            <StudentRow
+                                key={student.id}
+                                student={student}
+                            />
+                        ))}
+                    </TableBody>
+                </Table>
             </div>
         </Card>
     </>

@@ -7,8 +7,7 @@ const STUDENTS_KEY = "STUDENTS"
 
 export const useStudents = () => {
 
-    const { students } = useContext(StudentsContext)
-    const { setStudents } = useContext(StudentsContext)
+    const { setStudents, students, editStudent, currentStudent, goToStudentsList } = useContext(StudentsContext)
 
     const getStudentsFromStorage = () => {
         const students = localStorage.getItem(STUDENTS_KEY) as string
@@ -70,7 +69,7 @@ export const useStudents = () => {
         setStudents!(curr => [ ...curr, newStudent ])
     }
 
-    const editStudent = (student: Student) => {
+    const _editStudent = (student: Student) => {
         const _students = students.filter(
             _student => _student.id !== student.id
         )
@@ -79,12 +78,19 @@ export const useStudents = () => {
         setStudentsOnStorage(newStudents)
     }
 
+    const goToEditStudentPage = (student: Student) => {
+        editStudent!(student)
+    }
+
     return {
         loadStudents: getStudentsFromStorage,
         createStudent,
         deleteStudent,
-        editStudent,
-        students
+        editStudent: _editStudent,
+        goToEditStudentPage,
+        students,
+        student: currentStudent,
+        goToStudentsList
     }
 }
 

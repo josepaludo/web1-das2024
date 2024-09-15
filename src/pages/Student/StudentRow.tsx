@@ -1,26 +1,36 @@
-import { Student } from '../../types/Student'
-import { useState } from 'react'
-import StudentLabelRow from './StudentLabelRow'
-import StudentEditRow from './StudentEditRow'
+import { Student } from '../../types/Student';
+import { IconButton, TableCell, TableRow, Tooltip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { useStudents } from '../../hooks/useStudents';
+import DeleteStudentButton from './DeleteStudentButton';
 
 
-export default function StudentRow({ student }: { student: Student }) {
+type Props = { student: Student }
 
-    const [ rowState, setRowState ] = useState<"view"|"edit">("view")
+export default function StudentRow({ student }: Props) {
 
-    if (rowState === "view") {
-        return (
-            <StudentLabelRow
-                student={student}
-                editStudent={() => setRowState("edit")}
-            />
-        )
-    }
+    const { goToEditStudentPage } = useStudents()
 
     return (
-        <StudentEditRow
-            student={student}
-            changeBackToView={() => setRowState("view")}
-        />
+        <TableRow
+            key={student.id}
+            className="flex gap-16 pt-2 w-fit min-w-full"
+        >
+            <TableCell>{student.id}</TableCell>
+            <TableCell>{student.name}</TableCell>
+            <TableCell>{student.email}</TableCell>
+            <TableCell>{student.cpf}</TableCell>
+            <TableCell>{student.birthDate}</TableCell>
+
+            <TableCell className='flex items-center'>
+                <Tooltip title="Editar Aluno">
+                    <IconButton onClick={() => goToEditStudentPage(student)} >
+                        <EditIcon />
+                    </IconButton>
+                </Tooltip>
+
+                <DeleteStudentButton id={student.id} />
+            </TableCell>
+        </TableRow>
     )
 }

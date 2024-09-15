@@ -13,20 +13,18 @@ type Errors = {
 type Props = {
     type: "create",
     student?: undefined,
-    onSuccess?: () => void
 } | {
     type: "edit",
     student: Student,
-    onSuccess?: () => void
 }
 
 const splitBy = (str: string, char: string) => (
     !str ? [] : str.split(char).filter(field => !!field)
 )
 
-export const useStudentForm = ({ type, student, onSuccess }: Props) => {
+export const useStudentForm = ({ type, student  }: Props) => {
 
-    const { createStudent, editStudent } = useStudents()
+    const { createStudent, editStudent, goToStudentsList } = useStudents()
     const [ errors, setErrors ] = useState<Errors>({})
 
     const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -81,10 +79,6 @@ export const useStudentForm = ({ type, student, onSuccess }: Props) => {
             return
         }
 
-        if (onSuccess) {
-            onSuccess()
-        }
-
         switch (type) {
             case "create":
                 createStudent({ name, email, cpf, birthDate: birthDateString })
@@ -100,6 +94,8 @@ export const useStudentForm = ({ type, student, onSuccess }: Props) => {
                 })
                 break
         }
+
+        goToStudentsList!()
     }
 
     return { onSubmit, errors }

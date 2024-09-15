@@ -26,6 +26,19 @@ export const useStudents = () => {
         return studentsParsed
     }
 
+    const setStudentsOnStorage = (_students: Array<Student>) => {
+
+        let studentsString: string
+        try {
+            studentsString = JSON.stringify(_students)
+        } catch {
+            return false
+        }
+
+        localStorage.setItem(STUDENTS_KEY, studentsString)
+        return true
+    }
+
     const addStudentToStorage = (student: Omit<Student, "id">): Student|null => {
 
         let studentsParsed = getStudentsFromStorage()
@@ -36,24 +49,20 @@ export const useStudents = () => {
 
         studentsParsed = [ newStudent, ...studentsParsed ]
 
-        let studentsString: string
-        try {
-            studentsString = JSON.stringify(studentsParsed)
-        } catch {
-            return null
+        if (setStudentsOnStorage(studentsParsed)) {
+            return newStudent
         }
 
-        localStorage.setItem(STUDENTS_KEY, studentsString)
-        return newStudent
+        return null
     }
 
-    const getNewId = (students: Array<Student>) => (
-        Math.max(0, ...students.map(student => student.id)) + 1
-    )
+    const deleteStudent = (id: number) => {
+        const newStudents = students.filter(student => student.id !== id)
+        setStudentsOnStorage(newStudents)
+        setStudents!(newStudents)
+    }
 
-
-
-    const _createStudent = (student: Omit<Student, "id">) => {
+    const createStudent = (student: Omit<Student, "id">) => {
         const newStudent = addStudentToStorage(student)
         if (!newStudent) {
             return
@@ -61,9 +70,24 @@ export const useStudents = () => {
         setStudents!(curr => [ ...curr, newStudent ])
     }
 
+    const editStudent = (student: Student) => {
+        const _students = students.filter(
+            _student => _student.id !== student.id
+        )
+        const newStudents = [ ..._students, student ]
+        setStudents!(newStudents)
+        setStudentsOnStorage(newStudents)
+    }
+
     return {
-        createStudent: _createStudent,
         loadStudents: getStudentsFromStorage,
+        createStudent,
+        deleteStudent,
+        editStudent,
         students
     }
 }
+
+const getNewId = (students: Array<Student>) => (
+    Math.max(0, ...students.map(student => student.id)) + 1
+)

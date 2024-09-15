@@ -1,5 +1,6 @@
 import { Card, Typography } from "@mui/material"
 import { useStudents } from "../../hooks/useStudents"
+import StudentRow from "./StudentRow"
 
 
 export default function StudentsList() {
@@ -17,32 +18,12 @@ export default function StudentsList() {
                     Estudantes
                 </Typography>
                 { students.map(student => (
-                    <div
+                    <StudentRow
                         key={student.id}
-                        className="flex gap-16 border-t pt-2 w-fit min-w-full"
-                    >
-                        <LabelAndValue label="ID" value={student.id} />
-                        <LabelAndValue label="Nome" value={student.name} />
-                        <LabelAndValue label="E-Mail" value={student.email} />
-                        <LabelAndValue label="CPF" value={student.cpf} />
-                        <LabelAndValue label="Data de Nascimento" value={student.birthDate} />
-                    </div>
+                        student={student}
+                    />
                 ))}
             </div>
         </Card>
     </>
-}
-
-function LabelAndValue({ label, value }: { label: string, value: string|number }) {
-
-    return (
-        <div>
-            <Typography variant="h6" className="text-nowrap">
-                { label }
-            </Typography>
-            <Typography variant="body1">
-                { value }
-            </Typography>
-        </div>
-    )
 }

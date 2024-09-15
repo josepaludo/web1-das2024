@@ -23,12 +23,13 @@
 
 ## Observações
 
+- Link para o repositório github: https://github.com/josepaludo/web1-das2024
+- Link para a apresentação do projeto: https://www.youtube.com/watch?v=ZsAuI3aPWxM
 - Não havendo especificações sobre a *stack* a ser utilizada, além da obrigatoriedade da utilização de Bootstrap ou Material, utilizou-se:
     - *React*
     - *TypeScript*
     - *MaterialUI*
     - *TailwindCSS*
 - Foi utilizada a api [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) como requisitado.
-- Link para o repositório github: https://github.com/josepaludo/web1-das2024
 - Foi implementada uma aplicação CRUD onde se pode criar, ler, atualizar e remover alunos e arquivos, não havendo relação entre as duas entidades, como foi permitido pelas especificações do trabalho.
 

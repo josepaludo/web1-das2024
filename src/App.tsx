@@ -1,10 +1,13 @@
+import { Typography } from "@mui/material"
+import AcUnitIcon from '@mui/icons-material/AcUnit'
+
 
 export default function App() {
 
-    return (
-
-        <div className="bg-red-600">
+    return <>
+        <Typography variant="h1">
             Hello, World!
-        </div>
-    )
+        </Typography>
+        <AcUnitIcon />
+    </>
 }

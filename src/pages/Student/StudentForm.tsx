@@ -1,10 +1,12 @@
 
 import { Button, Card, Typography } from "@mui/material"
-import StudentFormFields from "./StudentFormFields";
 import { useStudentForm } from "../../hooks/useStudentForm";
 import { Student } from "../../types/Student";
 import dayjs from "dayjs";
-
+import { TextField } from "@mui/material"
+import { DatePicker } from "@mui/x-date-pickers"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 type Props = {
     student?: Student
@@ -35,10 +37,46 @@ export default function StudentForm({ student }: Props) {
                 className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 items-start"
             >
 
-                <StudentFormFields
-                    errors={errors}
-                    defaultValues={defaultValues}
+            <TextField
+                name="name"
+                label="Nome"
+                placeholder="Nome"
+                defaultValue={defaultValues?.name ?? ""}
+                error={!!errors.name}
+                helperText={errors.name}
+            />
+
+            <TextField
+                name="email"
+                label="E-Mail"
+                placeholder="E-Mail"
+                defaultValue={defaultValues?.email ?? ""}
+                error={!!errors.email}
+                helperText={errors.email}
+            />
+
+            <TextField
+                name="cpf"
+                label="CPF"
+                placeholder="CPF"
+                defaultValue={defaultValues?.cpf ?? ""}
+                error={!!errors.cpf}
+                helperText={errors.cpf}
+            />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                    name="birthDate"
+                    label="Data de Nascimento"
+                    defaultValue={defaultValues?.birthDate}
+                    slotProps={{
+                        textField: {
+                            error: !!errors.birthDate,
+                            helperText: errors.birthDate
+                        }
+                    }}
                 />
+            </LocalizationProvider>
 
                 <div className="flex md:col-span-2 xl:col-span-4 justify-end">
                     <Button

@@ -25,7 +25,7 @@ export default function CourseForm({ course }: Props) {
             </Typography>
             <form
                 onSubmit={onSubmit}
-                className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 items-start"
+                className="grid md:grid-cols-2 gap-4 items-start"
             >
 
                 <TextField

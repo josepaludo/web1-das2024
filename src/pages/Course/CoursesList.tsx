@@ -1,34 +1,32 @@
 import { Card, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
-import { useStudents } from "../../hooks/useStudents"
-import StudentRow from "./StudentRow"
+import { useCourses } from "../../hooks/useCourses"
+import CourseRow from "./CourseRow"
 
 
-export default function StudentsList() {
+export default function CoursesList() {
 
-    const { students } = useStudents()
+    const { courses } = useCourses()
 
     return <>
         <Card elevation={0}>
             <div className="w-full overflow-x-scroll p-6 flex flex-col gap-4">
                 <Typography variant="h4">
-                    Estudantes
+                    Cursos
                 </Typography>
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell>Nome</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>CPF</TableCell>
-                            <TableCell>Data de Nascimento</TableCell>
+                            <TableCell>Link</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { students.map(student => (
-                            <StudentRow
-                                key={student.id}
-                                student={student}
+                        { courses.map(course => (
+                            <CourseRow
+                                key={course.id}
+                                course={course}
                             />
                         ))}
                     </TableBody>
